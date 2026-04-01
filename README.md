@@ -4,17 +4,17 @@
 
 **在线演示（作者部署）**：[InkMind · 个人知识博客](http://inkmind.shoppingfw.cn/) — 可在此体验与本文档对应的实例。
 
-[License](LICENSE)
-[Go](https://go.dev/)
-[React](https://react.dev/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Go](https://img.shields.io/badge/Go-1.25+-00ADD8?logo=go)](https://go.dev/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://react.dev/)
 
 ## 界面预览
 
-图片来自仓库 [fw19994/AIBolg](https://github.com/fw19994/AIBolg)（`raw.githubusercontent.com` 直链，便于在 GitHub 上渲染）。
+图片来自仓库 [fw19994/AIBolg](https://github.com/fw19994/AIBolg)（使用 `raw.githubusercontent.com` 直链，便于在 GitHub 上渲染）。
 
-InkMind 界面预览 1
+![InkMind 界面预览 1](https://raw.githubusercontent.com/fw19994/AIBolg/main/image.png)
 
-InkMind 界面预览 2
+![InkMind 界面预览 2](https://raw.githubusercontent.com/fw19994/AIBolg/main/image%20copy.png)
 
 ---
 
