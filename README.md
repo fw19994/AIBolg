@@ -53,10 +53,11 @@ cd blog
 
 ### 2. 后端 API
 
-数据库使用 **MySQL**，配置为 **YAML**（与 `api/config/config.dev.yaml` 同结构）。
+数据库使用 **MySQL**，配置为 **YAML**。
 
 1. 创建数据库（开发环境示例库名 `inkmind`）。
-2. 复制并编辑配置，例如 `api/config/config.dev.yaml`（密码等可配合环境变量占位，如 `password: "${DB_PASSWORD}"`）。
+2. **本地配置**：将 `api/config/config.dev.yaml.example` 复制为 `api/config/config.dev.yaml`，按环境修改数据库与密钥（`config.test.yaml` / `config.prod.yaml` 同理，对应 `APP_ENV`）。  
+   **开源仓库只提交 `*.yaml.example` 示例**；真实的 `config.*.yaml` 已列入 `.gitignore`，不会被提交，你本地的配置文件可一直保留、自行维护。
 3. 启动：
 
 ```bash
@@ -69,13 +70,13 @@ go run .
 
 **环境**：通过环境变量 `APP_ENV` 选择配置文件。
 
-| 环境 | `APP_ENV` | 配置文件 |
-|------|-----------|----------|
-| 开发 | `dev`（默认） | `config/config.dev.yaml` |
-| 测试 | `test` | `config/config.test.yaml` |
-| 生产 | `prod` | `config/config.prod.yaml` |
+| 环境 | `APP_ENV` | 本地配置文件（需自行从 .example 复制） |
+|------|-----------|------------------------------------------|
+| 开发 | `dev`（默认） | `api/config/config.dev.yaml` |
+| 测试 | `test` | `api/config/config.test.yaml` |
+| 生产 | `prod` | `api/config/config.prod.yaml` |
 
-配置片段示例（`config/config.dev.yaml`）：
+配置片段示例（与 `config.dev.yaml.example` 一致，密码等请用环境变量或本地值替换）：
 
 ```yaml
 app:
@@ -129,7 +130,7 @@ npm run dev
 ```
 blog/
 ├── api/                 # Go 后端
-│   ├── config/          # YAML 配置
+│   ├── config/          # YAML：仓库内为 *.yaml.example；本地 config.*.yaml 不入库
 │   ├── handlers/        # HTTP 处理（文章、用户、AI、上传等）
 │   ├── internal/        # database、seed 等
 │   ├── models/          # 数据模型

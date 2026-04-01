@@ -16,6 +16,11 @@ web/dist/
 .env.production
 *.local
 
+# API YAML：仓库仅提交 *.yaml.example，本地真实配置勿提交
+api/config/config.dev.yaml
+api/config/config.test.yaml
+api/config/config.prod.yaml
+
 # IDE / OS
 .idea/
 .DS_Store
