@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>InkMind · 作者主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      body::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100">
+    <!-- 主体 -->
+    <div class="min-h-screen w-full px-3 md:px-8 lg:px-16 py-4 md:py-8 flex overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+        <!-- 左侧侧边栏 -->
+        <aside
+          class="hidden md:flex md:flex-col w-60 border-r border-slate-800/80 bg-slate-900/70 px-4 py-4 gap-4 text-xs"
+        >
+          <div class="flex items-center gap-3">
+            <img
+              src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200"
+              alt="作者头像"
+              class="w-12 h-12 rounded-2xl object-cover"
+            />
+            <div>
+              <p class="text-sm font-semibold">Fengwei</p>
+              <p class="text-[11px] text-emerald-300 flex items-center gap-1">
+                <i class="fa-solid fa-sparkles text-[9px]"></i>
+                <span>全栈工程师 · 写作爱好者</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-slate-500 px-1">导航</p>
+            <a
+              href="home.html"
+              class="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/70 hover:text-white transition"
+            >
+              <i class="fa-solid fa-newspaper"></i>
+              <span>博客主页</span>
+            </a>
+            <a
+              href="articles.html"
+              class="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/70 hover:text-white transition"
+            >
+              <i class="fa-solid fa-folder-open"></i>
+              <span>文章管理</span>
+            </a>
+            <a
+              href="settings.html"
+              class="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/70 hover:text-white transition"
+            >
+              <i class="fa-solid fa-sliders"></i>
+              <span>AI 与外观设置</span>
+            </a>
+          </div>
+
+          <div class="mt-4 space-y-2 text-xs text-slate-300">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-slate-500 px-1">写作主题</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span
+                class="px-2 py-1 rounded-full bg-slate-800/90 text-emerald-200 flex items-center gap-1"
+              >
+                <i class="fa-solid fa-hashtag text-emerald-300"></i>
+                <span>AI 写作</span>
+              </span>
+              <span
+                class="px-2 py-1 rounded-full bg-slate-800/90 text-cyan-200 flex items-center gap-1"
+              >
+                <i class="fa-solid fa-hashtag text-cyan-300"></i>
+                <span>工程实践</span>
+              </span>
+              <span
+                class="px-2 py-1 rounded-full bg-slate-800/90 text-sky-200 flex items-center gap-1"
+              >
+                <i class="fa-solid fa-hashtag text-sky-300"></i>
+                <span>知识管理</span>
+              </span>
+              <span
+                class="px-2 py-1 rounded-full bg-slate-800/90 text-violet-200 flex items-center gap-1"
+              >
+                <i class="fa-solid fa-hashtag text-violet-300"></i>
+                <span>个人成长</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-auto space-y-3 text-[11px] text-slate-400">
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-calendar-days text-emerald-300"></i>
+              <span>已连续写作 28 天</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-book-open text-cyan-300"></i>
+              <span>累计发布 42 篇公开文章</span>
+            </p>
+          </div>
+        </aside>
+
+        <!-- 主内容 -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+          <!-- 顶部简介区 -->
+          <section
+            class="px-4 md:px-8 py-4 md:py-6 border-b border-slate-800/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950"
+          >
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="relative">
+                  <img
+                    src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200"
+                    alt="作者头像"
+                    class="w-16 h-16 md:w-20 md:h-20 rounded-2xl object-cover"
+                  />
+                  <span
+                    class="absolute -bottom-1 -right-1 w-6 h-6 rounded-xl bg-emerald-500/90 text-slate-950 flex items-center justify-center text-xs border border-slate-900"
+                  >
+                    <i class="fa-solid fa-pen-nib"></i>
+                  </span>
+                </div>
+                <div>
+                  <p class="text-base md:text-lg font-semibold flex items-center gap-2">
+                    Fengwei
+                    <span
+                      class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/50 text-[11px] text-emerald-200 flex items-center gap-1"
+                    >
+                      <i class="fa-solid fa-sparkles text-[10px]"></i>
+                      <span>InkMind 创作者</span>
+                    </span>
+                  </p>
+                  <p class="text-xs md:text-sm text-slate-300 mt-1 max-w-xl">
+                    资深全栈工程师，喜欢用写作整理思路，也喜欢用代码把想法变成产品。
+                    正在探索「写作 × AI × 工程实践」的边界。
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 text-xs">
+                <a
+                  href="settings.html#profile"
+                  class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700"
+                >
+                  <i class="fa-regular fa-pen-to-square"></i>
+                  <span>编辑资料</span>
+                </a>
+                <button
+                  class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700"
+                >
+                  <i class="fa-solid fa-rss"></i>
+                  <span>订阅更新</span>
+                </button>
+                <button
+                  class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700"
+                >
+                  <i class="fa-solid fa-envelope"></i>
+                  <span>联系作者</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 数据概览 -->
+            <div class="mt-4 grid grid-cols-3 md:grid-cols-4 gap-3 text-xs">
+              <div
+                class="rounded-2xl bg-slate-900/80 border border-slate-700/80 px-3 py-2 flex flex-col justify-between"
+              >
+                <p class="text-[11px] text-slate-400">公开文章</p>
+                <p class="text-lg font-semibold mt-1">42</p>
+              </div>
+              <div
+                class="rounded-2xl bg-slate-900/80 border border-slate-700/80 px-3 py-2 flex flex-col justify-between"
+              >
+                <p class="text-[11px] text-slate-400">累计字数</p>
+                <p class="text-lg font-semibold mt-1">128k</p>
+              </div>
+              <div
+                class="rounded-2xl bg-slate-900/80 border border-slate-700/80 px-3 py-2 flex flex-col justify-between"
+              >
+                <p class="text-[11px] text-slate-400">AI 协作占比</p>
+                <p class="text-lg font-semibold mt-1 flex items-center gap-1">
+                  63%
+                  <span class="text-[10px] text-emerald-300">(近 30 天)</span>
+                </p>
+              </div>
+              <div
+                class="hidden md:flex rounded-2xl bg-gradient-to-r from-emerald-500/15 to-cyan-500/15 border border-emerald-500/50 px-3 py-2 flex-col justify-between"
+              >
+                <p class="text-[11px] text-emerald-200 flex items-center gap-1">
+                  <i class="fa-solid fa-wand-magic-sparkles text-[10px]"></i>
+                  <span>AI 小结</span>
+                </p>
+                <p class="text-[11px] text-emerald-50 mt-1">
+                  你的写作更偏向「实践经验」与「方法论」，读者常在技术与个人成长之间获得连接感。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 下半部分：文章列表 + 读者互动 -->
+          <section class="flex-1 flex overflow-hidden">
+            <!-- 文章列表 -->
+            <div class="flex-1 overflow-y-auto px-4 md:px-8 py-4 space-y-3">
+              <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+                <p>最新文章</p>
+                <a
+                  href="home.html"
+                  class="inline-flex items-center gap-1 text-emerald-300 hover:text-emerald-200"
+                >
+                  <span>查看全部</span>
+                  <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                </a>
+              </div>
+
+              <!-- 文章条目 1 -->
+              <a
+                href="article.html"
+                class="rounded-2xl bg-slate-900/80 border border-slate-800/80 hover:border-emerald-500/60 transition px-3.5 py-3 flex flex-col gap-1.5 text-xs md:text-sm"
+              >
+                <div class="flex items-center justify-between gap-2">
+                  <p class="font-semibold line-clamp-1">
+                    当写作遇到 AI：如何在不过度依赖的前提下，让自己写得更好？
+                  </p>
+                  <span class="text-[10px] text-slate-400 whitespace-nowrap">3 天前</span>
+                </div>
+                <p class="text-[11px] text-slate-400 line-clamp-2">
+                  从排斥到协作，一位工程师如何调整自己对 AI 写作工具的期待。
+                </p>
+                <div class="flex items-center justify-between mt-1 text-[11px] text-slate-400">
+                  <div class="flex items-center gap-2">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-regular fa-clock"></i>
+                      <span>8 分钟</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-sparkles text-emerald-300"></i>
+                      <span>AI 协作写作</span>
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-regular fa-eye"></i>
+                      <span>1,247</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i class="fa-regular fa-comment"></i>
+                      <span>23</span>
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+              <!-- 文章条目 2 -->
+              <a
+                href="article.html"
+                class="rounded-2xl bg-slate-900/80 border border-slate-800/80 hover:border-cyan-500/60 transition px-3.5 py-3 flex flex-col gap-1.5 text-xs md:text-sm"
+              >
+                <div class="flex items-center justify-between gap-2">
+                  <p class="font-semibold line-clamp-1">
+                    用博客驱动你的项目设计：从 README 到产品故事
+                  </p>
+                  <span class="text-[10px] text-slate-400 whitespace-nowrap">1 周前</span>
+                </div>
+                <p class="text-[11px] text-slate-400 line-clamp-2">
+                  当你习惯在项目最初就写下「为什么做」和「做成什么样算完成」，很多决定会变得更清晰。
+                </p>
+                <div class="flex items-center justify-between mt-1 text-[11px] text-slate-400">
+                  <div class="flex items-center gap-2">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-regular fa-clock"></i>
+                      <span>7 分钟</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-code-branch text-cyan-300"></i>
+                      <span>工程实践</span>
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-regular fa-eye"></i>
+                      <span>968</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i class="fa-regular fa-comment"></i>
+                      <span>17</span>
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+              <!-- 文章条目 3 -->
+              <a
+                href="article.html"
+                class="rounded-2xl bg-slate-900/80 border border-slate-800/80 hover:border-violet-500/60 transition px-3.5 py-3 flex flex-col gap-1.5 text-xs md:text-sm"
+              >
+                <div class="flex items-center justify-between gap-2">
+                  <p class="font-semibold line-clamp-1">
+                    一年之后再回头看，哪些「碎片笔记」真的帮到了我？
+                  </p>
+                  <span class="text-[10px] text-slate-400 whitespace-nowrap">2 周前</span>
+                </div>
+                <p class="text-[11px] text-slate-400 line-clamp-2">
+                  不是所有笔记都会变成知识体系，但有些会，而你可以有意识地增加它们出现的概率。
+                </p>
+                <div class="flex items-center justify-between mt-1 text-[11px] text-slate-400">
+                  <div class="flex items-center gap-2">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-regular fa-clock"></i>
+                      <span>6 分钟</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i class="fa-solid fa-seedling text-violet-300"></i>
+                      <span>知识花园</span>
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="flex items-center gap-1">
+                      <i class="fa-regular fa-eye"></i>
+                      <span>732</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i class="fa-regular fa-comment"></i>
+                      <span>12</span>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- 右侧：读者互动 / AI 评价 -->
+            <aside
+              class="hidden lg:flex lg:flex-col w-80 border-l border-slate-800/80 bg-slate-900/70 px-4 py-4 gap-3 text-xs"
+            >
+              <div
+                class="rounded-2xl bg-slate-950/70 border border-slate-800/80 px-3 py-3 space-y-2 text-[11px]"
+              >
+                <p class="flex items-center gap-2 text-slate-300">
+                  <i class="fa-solid fa-comment-dots text-cyan-300"></i>
+                  <span>读者反馈小摘</span>
+                </p>
+                <div class="space-y-1.5 text-slate-400">
+                  <p>「你的文章很少给出标准答案，更像是在邀请我一起思考。」</p>
+                  <p>「第一次觉得技术博客也可以这么温柔。」</p>
+                  <p>「看完会很想马上去实践，而不是只是收藏。」</p>
+                </div>
+              </div>
+
+              <div
+                class="rounded-2xl bg-slate-950/70 border border-slate-800/80 px-3 py-3 space-y-2 text-[11px]"
+              >
+                <p class="flex items-center gap-2 text-slate-300">
+                  <i class="fa-solid fa-brain text-emerald-300"></i>
+                  <span>AI 对你写作风格的总结</span>
+                </p>
+                <ul class="space-y-1.5 text-slate-400 list-disc list-inside">
+                  <li>喜欢用具体场景开头，然后抽象出可迁移的方法论。</li>
+                  <li>在讲技术之前，先讲清楚「问题为什么值得被解决」。</li>
+                  <li>更关注「人与工具的关系」，而不是单纯罗列功能。</li>
+                </ul>
+              </div>
+
+              <div
+                class="mt-auto rounded-2xl bg-gradient-to-r from-emerald-500/15 via-cyan-500/10 to-sky-500/15 border border-emerald-500/40 px-3 py-3 text-[11px] text-emerald-100"
+              >
+                <p class="flex items-center gap-2 mb-1">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  <span>给读者的提示</span>
+                </p>
+                <p>
+                  你可以在每篇文章底部开启「AI 对话」，
+                  让读者就文章内容直接向模型发问，从而把阅读延伸成一次小小的工作坊。
+                </p>
+              </div>
+            </aside>
+          </section>
+        </main>
+    </div>
+  </body>
+</html>

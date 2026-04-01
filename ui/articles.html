@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>InkMind · 文章管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body { -ms-overflow-style: none; scrollbar-width: none; }
+      body::-webkit-scrollbar { display: none; }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100">
+    <div class="min-h-screen w-full px-3 md:px-8 lg:px-16 py-4 md:py-8 flex overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <!-- 左侧导航 -->
+      <aside class="hidden md:flex md:flex-col w-60 border-r border-slate-800/80 bg-slate-900/70 px-4 py-4 gap-4 text-xs">
+        <div class="flex items-center gap-3">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl overflow-hidden bg-gradient-to-tr from-emerald-400 via-cyan-400 to-blue-500 flex items-center justify-center">
+              <i class="fa-solid fa-pen-nib text-slate-950 text-xl"></i>
+            </div>
+            <div>
+              <p class="text-sm font-semibold tracking-wide">InkMind</p>
+              <p class="text-[11px] text-slate-400">文章管理</p>
+            </div>
+          </a>
+        </div>
+        <nav class="space-y-1 text-sm">
+          <div class="text-[11px] uppercase tracking-[0.16em] text-slate-500 px-3 mb-1">导航</div>
+          <a href="home.html" class="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/70 hover:text-white transition">
+            <i class="fa-solid fa-house"></i>
+            <span>博客主页</span>
+          </a>
+          <a href="articles.html" class="flex items-center justify-between px-3 py-2 rounded-xl bg-slate-800/80 text-slate-50">
+            <span class="flex items-center gap-2">
+              <i class="fa-solid fa-folder-open"></i>
+              <span>文章管理</span>
+            </span>
+            <i class="fa-solid fa-signal text-[10px] text-emerald-400"></i>
+          </a>
+          <a href="settings.html" class="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/70 hover:text-white transition">
+            <i class="fa-solid fa-sliders"></i>
+            <span>设置</span>
+          </a>
+        </nav>
+        <div class="mt-auto text-[11px] text-slate-400">
+          <p class="flex items-center gap-2">
+            <i class="fa-solid fa-file-lines text-emerald-300"></i>
+            <span>共 42 篇 · 草稿 3 篇</span>
+          </p>
+        </div>
+      </aside>
+
+      <!-- 主内容 -->
+      <main class="flex-1 flex flex-col overflow-hidden">
+        <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-4 md:px-6 py-4 border-b border-slate-800/80 bg-slate-900/60">
+          <div>
+            <h1 class="text-lg font-semibold">文章管理</h1>
+            <p class="text-xs text-slate-400 mt-0.5">管理你的全部文章与草稿，支持筛选、搜索与批量操作</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex-1 sm:max-w-xs px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-700/80 text-xs flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+              <input type="text" id="articles-search" placeholder="搜索标题、标签…" class="flex-1 bg-transparent focus:outline-none placeholder:text-slate-500" />
+            </div>
+            <a href="editor.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 text-xs font-medium hover:bg-emerald-400 transition">
+              <i class="fa-solid fa-plus"></i>
+              <span>写新文章</span>
+            </a>
+          </div>
+        </header>
+
+        <!-- 筛选 Tab -->
+        <div class="px-4 md:px-6 py-3 border-b border-slate-800/80 flex flex-wrap items-center gap-2 text-xs">
+          <button class="articles-filter px-3 py-1.5 rounded-full bg-emerald-500/90 text-slate-950 font-medium" data-filter="all">全部</button>
+          <button class="articles-filter px-3 py-1.5 rounded-full bg-slate-800/80 text-slate-200 hover:bg-slate-700" data-filter="published">已发布</button>
+          <button class="articles-filter px-3 py-1.5 rounded-full bg-slate-800/80 text-slate-200 hover:bg-slate-700" data-filter="draft">草稿</button>
+        </div>
+
+        <!-- 文章列表 -->
+        <section class="flex-1 overflow-y-auto px-4 md:px-6 py-4">
+          <div class="space-y-3" id="articles-list">
+            <!-- 已发布 -->
+            <article class="articles-item rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3" data-status="published">
+              <div class="flex-1 min-w-0">
+                <h2 class="font-semibold text-sm truncate">当写作遇到 AI：如何在不过度依赖的前提下，让自己写得更好？</h2>
+                <div class="flex flex-wrap items-center gap-2 mt-1 text-[11px] text-slate-400">
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">已发布</span>
+                  <span>2026-03-10</span>
+                  <span>·</span>
+                  <span>写作习惯 · AI 工具 · 知识管理</span>
+                  <span>·</span>
+                  <span>1,247 阅读</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <a href="article.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 text-[11px]">查看</a>
+                <a href="editor.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 text-[11px]">编辑</a>
+                <button type="button" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-red-300 hover:bg-red-500/20 text-[11px]">删除</button>
+              </div>
+            </article>
+
+            <article class="articles-item rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3" data-status="published">
+              <div class="flex-1 min-w-0">
+                <h2 class="font-semibold text-sm truncate">用 20 分钟写出一篇结构清晰的长文：我与 AI 协作的时间盒实验</h2>
+                <div class="flex flex-wrap items-center gap-2 mt-1 text-[11px] text-slate-400">
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">已发布</span>
+                  <span>2026-03-08</span>
+                  <span>·</span>
+                  <span>时间管理 · AI 写作</span>
+                  <span>·</span>
+                  <span>892 阅读</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <a href="article.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 text-[11px]">查看</a>
+                <a href="editor.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 text-[11px]">编辑</a>
+                <button type="button" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-red-300 hover:bg-red-500/20 text-[11px]">删除</button>
+              </div>
+            </article>
+
+            <!-- 草稿 -->
+            <article class="articles-item rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3" data-status="draft">
+              <div class="flex-1 min-w-0">
+                <h2 class="font-semibold text-sm truncate">当写作遇到 AI 的那一刻</h2>
+                <div class="flex flex-wrap items-center gap-2 mt-1 text-[11px] text-slate-400">
+                  <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300">草稿</span>
+                  <span>最后编辑 2026-03-13</span>
+                  <span>·</span>
+                  <span>写作实验</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <a href="editor.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 text-[11px]">继续编辑</a>
+                <button type="button" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-red-300 hover:bg-red-500/20 text-[11px]">删除</button>
+              </div>
+            </article>
+
+            <article class="articles-item rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3" data-status="draft">
+              <div class="flex-1 min-w-0">
+                <h2 class="font-semibold text-sm truncate">用博客驱动你的项目设计</h2>
+                <div class="flex flex-wrap items-center gap-2 mt-1 text-[11px] text-slate-400">
+                  <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300">草稿</span>
+                  <span>最后编辑 2026-03-11</span>
+                  <span>·</span>
+                  <span>工程实践</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <a href="editor.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 text-[11px]">继续编辑</a>
+                <button type="button" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-red-300 hover:bg-red-500/20 text-[11px]">删除</button>
+              </div>
+            </article>
+
+            <article class="articles-item rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3" data-status="published">
+              <div class="flex-1 min-w-0">
+                <h2 class="font-semibold text-sm truncate">读完一本书之后，我会让 AI 做哪三件事？</h2>
+                <div class="flex flex-wrap items-center gap-2 mt-1 text-[11px] text-slate-400">
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">已发布</span>
+                  <span>2026-03-05</span>
+                  <span>·</span>
+                  <span>阅读方法</span>
+                  <span>·</span>
+                  <span>654 阅读</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <a href="article.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 text-[11px]">查看</a>
+                <a href="editor.html" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 text-[11px]">编辑</a>
+                <button type="button" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-red-300 hover:bg-red-500/20 text-[11px]">删除</button>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const filters = document.querySelectorAll(".articles-filter");
+        const items = document.querySelectorAll(".articles-item");
+        const searchInput = document.getElementById("articles-search");
+
+        function setActiveFilter(btn) {
+          filters.forEach((b) => {
+            const on = b === btn;
+            b.classList.toggle("bg-emerald-500/90", on);
+            b.classList.toggle("text-slate-950", on);
+            b.classList.toggle("font-medium", on);
+            b.classList.toggle("bg-slate-800/80", !on);
+            b.classList.toggle("text-slate-200", !on);
+          });
+        }
+
+        function applyFilter(filter) {
+          const q = (searchInput && searchInput.value.trim().toLowerCase()) || "";
+          items.forEach((el) => {
+            const status = el.dataset.status;
+            const title = (el.querySelector("h2") && el.querySelector("h2").textContent) || "";
+            const tags = el.textContent || "";
+            const matchFilter = filter === "all" || status === filter;
+            const matchSearch = !q || title.toLowerCase().includes(q) || tags.toLowerCase().includes(q);
+            el.classList.toggle("hidden", !matchFilter || !matchSearch);
+          });
+        }
+
+        filters.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            setActiveFilter(btn);
+            applyFilter(btn.dataset.filter);
+          });
+        });
+        if (searchInput) {
+          searchInput.addEventListener("input", () => {
+            const active = document.querySelector(".articles-filter.font-medium");
+            applyFilter(active ? active.dataset.filter : "all");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

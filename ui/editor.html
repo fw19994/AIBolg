@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>InkMind · AI 写作编辑器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      body::-webkit-scrollbar {
+        display: none;
+      }
+      .editor-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      .editor-scroll {
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100">
+    <!-- 主体 -->
+    <div class="min-h-screen w-full px-3 md:px-8 lg:px-16 py-4 md:py-8 flex overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+        <!-- 左侧文档列表 / 草稿 -->
+        <aside
+          class="hidden md:flex md:flex-col w-60 border-r border-slate-800/80 bg-slate-900/70 px-4 py-4 gap-4 text-xs"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs text-slate-400">你的草稿</p>
+              <p class="text-sm font-medium">本地 & 云端同步</p>
+            </div>
+            <button
+              class="inline-flex items-center justify-center w-7 h-7 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700"
+            >
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+
+          <div class="space-y-2 overflow-y-auto editor-scroll pr-1">
+            <a
+              href="articles.html"
+              class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/70 text-left text-xs"
+            >
+              <i class="fa-solid fa-folder-open"></i>
+              <span>文章管理</span>
+            </a>
+            <button
+              class="w-full flex flex-col items-start gap-1 px-3 py-2 rounded-xl bg-slate-800/90 text-slate-100 text-left"
+            >
+              <div class="flex items-center justify-between w-full">
+                <span class="text-xs font-medium line-clamp-1">当写作遇到 AI 的那一刻</span>
+                <span class="text-[10px] text-emerald-300 flex items-center gap-1">
+                  <i class="fa-solid fa-cloud"></i>
+                  <span>已同步</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-400 line-clamp-1">
+                「也许我并不是在和机器人说话，而是在和未来的自己说话」...
+              </p>
+            </button>
+            <button
+              class="w-full flex flex-col items-start gap-1 px-3 py-2 rounded-xl hover:bg-slate-800/70 text-slate-200 text-left"
+            >
+              <div class="flex items-center justify-between w-full">
+                <span class="text-xs font-medium line-clamp-1">用博客驱动你的项目设计</span>
+                <span class="text-[10px] text-slate-400">草稿</span>
+              </div>
+              <p class="text-[11px] text-slate-400 line-clamp-1">
+                写下「为什么做」、记录「怎么做」...
+              </p>
+            </button>
+            <button
+              class="w-full flex flex-col items-start gap-1 px-3 py-2 rounded-xl hover:bg-slate-800/70 text-slate-200 text-left"
+            >
+              <div class="flex items-center justify-between w-full">
+                <span class="text-xs font-medium line-clamp-1">我的阅读对话记录</span>
+                <span class="text-[10px] text-slate-400">自动生成</span>
+              </div>
+              <p class="text-[11px] text-slate-400 line-clamp-1">
+                每次向 AI 提问，都是一次新的阅读笔记...
+              </p>
+            </button>
+          </div>
+
+          <div class="mt-auto space-y-3 text-[11px] text-slate-400">
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i>
+              <span>选中段落后出现 AI 工具条</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-keyboard text-cyan-400"></i>
+              <span>支持 Markdown 语法 · Ctrl+S 保存</span>
+            </p>
+          </div>
+        </aside>
+
+        <!-- 中间编辑器 -->
+        <main class="flex-1 flex flex-col">
+          <!-- 编辑器顶部工具栏 -->
+          <header
+            class="flex items-center justify-between px-4 md:px-6 py-3 border-b border-slate-800/80 bg-slate-900/70 backdrop-blur-sm"
+          >
+            <div class="flex items-center gap-3">
+              <a
+                href="home.html"
+                class="hidden sm:inline-flex items-center justify-center w-8 h-8 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700"
+              >
+                <i class="fa-solid fa-arrow-left"></i>
+              </a>
+              <div>
+                <input
+                  type="text"
+                  value="当写作遇到 AI 的那一刻"
+                  class="bg-transparent focus:outline-none text-sm md:text-base font-medium text-slate-50 placeholder:text-slate-500"
+                />
+                <p class="text-[11px] text-slate-400 flex items-center gap-2">
+                  <span>自动草稿已保存 · 00:23</span>
+                  <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+                  <span class="flex items-center gap-1">
+                    <i class="fa-solid fa-hashtag text-emerald-300"></i>
+                    <span>写作实验</span>
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 md:gap-3 text-xs">
+              <button
+                class="hidden md:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700"
+              >
+                <i class="fa-solid fa-eye"></i>
+                <span>预览</span>
+              </button>
+              <button
+                class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700"
+              >
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>保存</span>
+              </button>
+              <button
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-500 text-slate-950 font-medium hover:bg-emerald-400"
+              >
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>发布</span>
+              </button>
+            </div>
+          </header>
+
+          <!-- 工具栏 + 编辑区域 -->
+          <section class="flex-1 flex overflow-hidden">
+            <!-- 中部编辑器 -->
+                <div class="flex-1 flex flex-col border-r border-slate-800/80">
+              <!-- Markdown 工具栏 -->
+              <div
+                class="flex items-center justify-between px-3 md:px-6 py-2 border-b border-slate-800/80 bg-slate-900/70 text-[11px] text-slate-300"
+              >
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <button
+                    class="markdown-h1 inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700"
+                  >
+                    <span class="font-semibold">H1</span>
+                  </button>
+                  <button
+                    class="markdown-h2 inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700"
+                  >
+                    <span class="font-semibold">H2</span>
+                  </button>
+                  <span class="w-px h-5 bg-slate-700 mx-1"></span>
+                  <button
+                    class="markdown-bold inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700"
+                  >
+                    <i class="fa-solid fa-bold"></i>
+                  </button>
+                  <button
+                    class="markdown-italic inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700"
+                  >
+                    <i class="fa-solid fa-italic"></i>
+                  </button>
+                  <button
+                    class="markdown-code inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700"
+                  >
+                    <i class="fa-solid fa-code"></i>
+                  </button>
+                  <button
+                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700"
+                  >
+                    <i class="fa-solid fa-list-ul"></i>
+                  </button>
+                  <span class="w-px h-5 bg-slate-700 mx-1"></span>
+                  <button
+                    class="hidden sm:inline-flex items-center gap-1 px-2.5 h-7 rounded-lg bg-slate-800 hover:bg-slate-700"
+                  >
+                    <i class="fa-solid fa-image"></i>
+                    <span>插入图片</span>
+                  </button>
+                  <button
+                    class="hidden sm:inline-flex items-center gap-1 px-2.5 h-7 rounded-lg bg-slate-800 hover:bg-slate-700"
+                  >
+                    <i class="fa-solid fa-link"></i>
+                    <span>链接</span>
+                  </button>
+                </div>
+                <div class="flex items-center gap-2 text-[10px] text-slate-400">
+                  <span class="hidden sm:flex items-center gap-1">
+                    <i class="fa-solid fa-spell-check"></i>
+                    <span>AI 语法检查开启</span>
+                  </span>
+                  <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+                  <span id="editor-word-count">字数：0</span>
+                </div>
+              </div>
+
+              <!-- 编辑区域 -->
+              <div class="flex-1 overflow-y-auto editor-scroll px-3 md:px-6 py-3 md:py-4">
+                <!-- 模拟文本编辑区 -->
+                <div
+                  id="editor-area"
+                  contenteditable="true"
+                  class="relative rounded-2xl bg-slate-950/40 border border-slate-800/80 px-3 md:px-4 py-3 md:py-4 text-sm leading-relaxed text-slate-200 focus:outline-none"
+                >
+                  <!-- 选中文本时出现的 AI 工具条（静态示意） -->
+                  <div
+                    class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/95 border border-slate-700/80 text-[11px] text-slate-100 absolute -top-5 left-10 shadow-xl"
+                  >
+                    <span class="text-slate-400">AI 工具</span>
+                    <button
+                      class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center gap-1"
+                    >
+                      <i class="fa-solid fa-wand-magic-sparkles text-emerald-300"></i>
+                      <span>扩写</span>
+                    </button>
+                    <button
+                      class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center gap-1"
+                    >
+                      <i class="fa-solid fa-sparkles text-cyan-300"></i>
+                      <span>润色</span>
+                    </button>
+                    <button
+                      class="px-2 py-0.5 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center gap-1"
+                    >
+                      <i class="fa-solid fa-shuffle text-sky-300"></i>
+                      <span>换一种说法</span>
+                    </button>
+                  </div>
+
+                  <p class="text-xs text-slate-500 mb-2">
+                    # Markdown 标题示例 · 你可以在这里直接写 Markdown，右侧会实时预览
+                  </p>
+                  <p class="mb-3">
+                    有一段时间，我对 AI 写作工具非常抗拒——总觉得一旦依赖它，我的表达能力就会慢慢退化。
+                    但后来我意识到，问题不在于工具本身，而在于「我把什么交给了它」。
+                  </p>
+                  <p class="mb-3">
+                    于是我开始做一个小实验：只让 AI
+                    参与那些我本来就会做、只是有点「懒得做」或者「做得没那么好」的部分，比如：
+                  </p>
+                  <ul class="list-disc list-inside mb-3 space-y-1">
+                    <li>帮我把一段已经写好的内容扩写成两到三段；</li>
+                    <li>在我给出故事大纲之后，提示我「还能从哪个角度补充细节」；</li>
+                    <li>在文章完成后，帮我找出逻辑上可能有跳跃的地方。</li>
+                  </ul>
+                  <p>
+                    这个过程中，我逐渐找到了一个平衡点：
+                    <span class="bg-emerald-500/15 text-emerald-200 px-1 py-0.5 rounded">
+                      只要我仍然是「观点的提供者」，让 AI
+                      做「表达的放大器」，那么写作这件事，就依然牢牢掌握在我手里。
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 右侧 AI 面板 / 预览 -->
+            <aside class="hidden lg:flex lg:flex-col w-80 bg-slate-900/70">
+              <!-- 切换 Tab -->
+              <div
+                class="flex items-center justify-between px-4 py-2 border-b border-slate-800/80 text-[11px]"
+              >
+                <div class="flex items-center gap-1.5">
+                  <button
+                    class="px-3 py-1.5 rounded-full bg-emerald-500 text-slate-950 font-medium flex items-center gap-1"
+                  >
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>AI 助手</span>
+                  </button>
+                  <button
+                    class="px-3 py-1.5 rounded-full bg-slate-800 text-slate-200 hover:bg-slate-700"
+                  >
+                    预览
+                  </button>
+                </div>
+                <button
+                  class="inline-flex items-center justify-center w-7 h-7 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700"
+                >
+                  <i class="fa-solid fa-gear"></i>
+                </button>
+              </div>
+
+              <!-- AI 面板主体 -->
+              <div class="flex-1 flex flex-col px-3 py-3 gap-3">
+                <div class="text-[11px] text-slate-300 bg-slate-950/60 border border-slate-800/80 rounded-2xl px-3 py-2">
+                  <p class="flex items-center gap-2 mb-1">
+                    <i class="fa-solid fa-circle-nodes text-emerald-300"></i>
+                    <span>当前上下文</span>
+                  </p>
+                  <p class="text-slate-400">
+                    AI 会基于当前文档内容与你选中的段落，给出扩写 / 改写 / 总结建议。
+                  </p>
+                </div>
+
+                <div class="flex-1 rounded-2xl bg-slate-950/70 border border-slate-800/80 p-3 overflow-y-auto editor-scroll space-y-3">
+                  <!-- AI 建议 1 -->
+                  <div class="space-y-1 text-[11px] text-slate-100">
+                    <p class="flex items-center gap-1.5 text-emerald-300">
+                      <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+                      <span>扩写建议 · 情绪层面</span>
+                    </p>
+                    <p class="bg-slate-900/80 rounded-xl px-3 py-2 leading-relaxed" data-copy-source>
+                      你可以多写一点当时的具体现实场景，比如「深夜的桌面」「反复删改的句子」「不断闪烁的
+                      cursor」，让读者更容易进入你的状态，而不是只看到一个抽象的观念变化。
+                    </p>
+                    <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400">
+                      <button
+                        class="px-2 py-0.5 rounded-full bg-slate-900 hover:bg-slate-800 flex items-center gap-1"
+                      >
+                        <i class="fa-solid fa-arrow-turn-down-left text-emerald-300"></i>
+                        <span>应用到选中段落</span>
+                      </button>
+                      <button
+                        class="px-2 py-0.5 rounded-full bg-slate-900 hover:bg-slate-800 flex items-center gap-1"
+                        data-copy
+                      >
+                        <i class="fa-solid fa-copy text-slate-300"></i>
+                        <span>复制</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- AI 建议 2 -->
+                  <div class="space-y-1 text-[11px] text-slate-100">
+                    <p class="flex items-center gap-1.5 text-cyan-300">
+                      <i class="fa-solid fa-sparkles text-xs"></i>
+                      <span>改写建议 · 更口语</span>
+                    </p>
+                    <p class="bg-slate-900/80 rounded-xl px-3 py-2 leading-relaxed" data-copy-source>
+                      原句：<span class="text-slate-300">
+                        「问题不在于工具本身，而在于我把什么交给了它。」
+                      </span>
+                      <br />
+                      可以尝试改成：<br />
+                      <span class="text-emerald-200">
+                        「问题可能从来不在工具，而是我一开始就把太多事情丢给了它。」
+                      </span>
+                    </p>
+                    <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400">
+                      <button
+                        class="px-2 py-0.5 rounded-full bg-slate-900 hover:bg-slate-800 flex items-center gap-1"
+                      >
+                        <i class="fa-solid fa-arrows-rotate text-cyan-300"></i>
+                        <span>替换句子</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- AI 总结 -->
+                  <div class="space-y-1 text-[11px] text-slate-100">
+                    <p class="flex items-center gap-1.5 text-sky-300">
+                      <i class="fa-solid fa-list-check text-xs"></i>
+                      <span>段落要点总结</span>
+                    </p>
+                    <ul class="bg-slate-900/80 rounded-xl px-3 py-2 space-y-1.5 list-disc list-inside" data-copy-source>
+                      <li>你从抗拒 AI 到尝试协作，是因为真实地遇到了写作卡顿。</li>
+                      <li>你逐渐意识到，AI 更适合做「表达层面」的放大，而不是「决定写什么」。</li>
+                      <li>你希望读者也能把 AI 当作写作的练习伙伴，而不是答案提供者。</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- AI 输入框 -->
+                <div
+                  class="rounded-2xl bg-slate-950/80 border border-slate-800/80 px-3 py-2 flex items-center gap-2 text-[11px]"
+                >
+                  <textarea
+                    rows="1"
+                    class="flex-1 bg-transparent focus:outline-none resize-none text-slate-100 placeholder:text-slate-500"
+                    placeholder="向 AI 提问：例如「帮我把上一个自然段改写得更简洁一点」"
+                  ></textarea>
+                  <button
+                    class="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition"
+                  >
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                  </button>
+                </div>
+              </div>
+            </aside>
+          </section>
+        </main>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Markdown 工具栏简单实现
+        const editor = document.getElementById("editor-area");
+        const wordCountEl = document.getElementById("editor-word-count");
+
+        function updateWordCount() {
+          if (!editor || !wordCountEl) return;
+          const text = editor.innerText.trim().replace(/\s+/g, " ");
+          const words = text.length ? text.split(" ").length : 0;
+          const chars = text.replace(/\s/g, "").length;
+          wordCountEl.textContent = `字数：${chars} · 词数：${words}`;
+        }
+
+        function surroundSelection(before, after) {
+          if (!editor) return;
+          editor.focus();
+          const sel = window.getSelection();
+          if (!sel || sel.rangeCount === 0) return;
+          const range = sel.getRangeAt(0);
+          if (!editor.contains(range.commonAncestorContainer)) return;
+          const selectedText = range.toString();
+          if (!selectedText) return;
+          const wrapper = document.createElement("span");
+          wrapper.textContent = before + selectedText + (after || "");
+          range.deleteContents();
+          range.insertNode(wrapper);
+          sel.removeAllRanges();
+          const newRange = document.createRange();
+          newRange.selectNodeContents(wrapper);
+          sel.addRange(newRange);
+          updateWordCount();
+        }
+
+        document.querySelectorAll(".markdown-bold").forEach((btn) => {
+          btn.addEventListener("click", () => surroundSelection("**", "**"));
+        });
+        document.querySelectorAll(".markdown-italic").forEach((btn) => {
+          btn.addEventListener("click", () => surroundSelection("*", "*"));
+        });
+        document.querySelectorAll(".markdown-code").forEach((btn) => {
+          btn.addEventListener("click", () => surroundSelection("`", "`"));
+        });
+
+        const h1Btn = document.querySelector(".markdown-h1");
+        const h2Btn = document.querySelector(".markdown-h2");
+        [h1Btn, h2Btn].forEach((btn, idx) => {
+          if (!btn) return;
+          btn.addEventListener("click", () => {
+            if (!editor) return;
+            editor.focus();
+            const sel = window.getSelection();
+            if (!sel || sel.rangeCount === 0) return;
+            const range = sel.getRangeAt(0);
+            if (!editor.contains(range.commonAncestorContainer)) return;
+            const lineStartPrefix = idx === 0 ? "# " : "## ";
+            const node = range.startContainer;
+            const parentBlock = node.closest("p") || node;
+            if (parentBlock && parentBlock.textContent && !parentBlock.textContent.trim().startsWith("#")) {
+              parentBlock.textContent = lineStartPrefix + parentBlock.textContent.trim();
+              updateWordCount();
+            }
+          });
+        });
+
+        if (editor) {
+          editor.addEventListener("input", updateWordCount);
+          updateWordCount();
+        }
+
+        // 复制 AI 建议到剪贴板
+        document.querySelectorAll("[data-copy-source]").forEach((el) => {
+          const container = el.closest("div");
+          if (!container) return;
+          const copyBtn = container.querySelector("button[data-copy]");
+        });
+
+        document.addEventListener("click", (e) => {
+          const target = e.target.closest("[data-copy]");
+          if (!target) return;
+          const parent = target.closest("div");
+          if (!parent) return;
+          const source = parent.querySelector("[data-copy-source]");
+          if (!source) return;
+          const text = source.innerText.trim();
+          if (!text) return;
+          navigator.clipboard && navigator.clipboard.writeText(text).catch(() => {});
+          target.classList.add("bg-emerald-600");
+          setTimeout(() => target.classList.remove("bg-emerald-600"), 600);
+        });
+      });
+    </script>
+  </body>
+</html>

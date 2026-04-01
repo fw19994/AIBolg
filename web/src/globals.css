@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  color-scheme: light dark;
+}
+
+/* 根节点铺满视口，避免四周出现「未贴边」感 */
+#root {
+  min-height: 100dvh;
+}
+
+/* 全局隐藏滚动条但保留滚动能力 */
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}

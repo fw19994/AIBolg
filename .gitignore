@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+web/.next/
+web/out/
+web/dist/
+*.tsbuildinfo
+
+# Go
+*.exe
+
+# Env（勿提交含密码的配置）
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.local
+
+# IDE / OS
+.idea/
+.DS_Store

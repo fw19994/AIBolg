@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>InkMind · 设置中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      body::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100">
+    <!-- 主体 -->
+    <div class="min-h-screen w-full px-3 md:px-8 lg:px-16 py-4 md:py-8 flex overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+        <!-- 左侧设置导航 -->
+        <aside
+          class="hidden md:flex md:flex-col w-60 border-r border-slate-800/80 bg-slate-900/70 px-4 py-4 gap-4 text-xs"
+        >
+          <div>
+            <p class="text-xs text-slate-400">设置中心</p>
+            <p class="text-sm font-medium">自定义你的写作环境</p>
+          </div>
+
+          <nav class="space-y-2">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-slate-500 px-1">首选项</p>
+            <button
+              type="button"
+              class="settings-nav w-full flex items-center justify-between px-3 py-2 rounded-xl bg-slate-800/90 text-slate-100 text-left"
+              data-section="ai"
+            >
+              <span class="flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-emerald-300"></i>
+                <span>AI 写作偏好</span>
+              </span>
+              <span class="text-[10px] text-emerald-300">推荐</span>
+            </button>
+            <button
+              type="button"
+              class="settings-nav w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-800/70 text-slate-200 text-left"
+              data-section="profile"
+            >
+              <span class="flex items-center gap-2">
+                <i class="fa-regular fa-user text-cyan-300"></i>
+                <span>个人信息</span>
+              </span>
+            </button>
+            <button
+              type="button"
+              class="settings-nav w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-800/70 text-slate-200 text-left"
+              data-section="theme"
+            >
+              <span class="flex items-center gap-2">
+                <i class="fa-solid fa-palette text-cyan-300"></i>
+                <span>外观主题</span>
+              </span>
+            </button>
+            <button
+              type="button"
+              class="settings-nav w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-800/70 text-slate-200 text-left"
+              data-section="privacy"
+            >
+              <span class="flex items-center gap-2">
+                <i class="fa-solid fa-lock text-sky-300"></i>
+                <span>隐私与数据</span>
+              </span>
+            </button>
+            <button
+              type="button"
+              class="settings-nav w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-800/70 text-slate-200 text-left"
+              data-section="export"
+            >
+              <span class="flex items-center gap-2">
+                <i class="fa-solid fa-plug text-violet-300"></i>
+                <span>集成与导出</span>
+              </span>
+            </button>
+          </nav>
+
+          <div class="mt-auto space-y-3 text-[11px] text-slate-400">
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-emerald-300"></i>
+              <span>所有 AI 设置仅影响你的私有空间，不会更改历史文章。</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-cyan-300"></i>
+              <span>AI 调用日志仅用于调试与安全审计。</span>
+            </p>
+          </div>
+        </aside>
+
+        <!-- 右侧设置内容 -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+          <header
+            id="settings-header"
+            class="px-4 md:px-8 py-3 border-b border-slate-800/80 bg-slate-900/70 flex items-center justify-between text-xs"
+          >
+            <div>
+              <p class="text-xs text-slate-400">AI 写作偏好</p>
+              <p class="text-sm font-medium" id="settings-title">配置 AI 如何参与你的写作与阅读</p>
+            </div>
+            <div class="flex items-center gap-2" id="settings-actions">
+              <button
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700"
+              >
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>恢复默认</span>
+              </button>
+              <button
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400"
+              >
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>保存更改</span>
+              </button>
+            </div>
+          </header>
+
+          <!-- 个人信息面板 -->
+          <section id="settings-panel-profile" class="settings-panel flex-1 overflow-y-auto px-4 md:px-8 py-4 hidden" data-panel="profile">
+            <div class="max-w-2xl space-y-4 text-xs">
+              <div class="rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 space-y-3">
+                <p class="text-sm font-medium flex items-center gap-2">
+                  <i class="fa-regular fa-id-card text-cyan-300"></i>
+                  <span>个人资料</span>
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <div class="flex flex-col items-start gap-2">
+                    <span class="text-[11px] text-slate-300">头像</span>
+                    <div class="relative">
+                      <img
+                        id="profile-avatar-preview"
+                        src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200"
+                        alt="头像预览"
+                        class="w-20 h-20 rounded-2xl object-cover border border-slate-700/80"
+                      />
+                      <label class="absolute bottom-0 right-0 px-2 py-1 rounded-lg bg-slate-800 text-slate-200 text-[10px] cursor-pointer hover:bg-slate-700">
+                        <i class="fa-solid fa-camera"></i> 更换
+                        <input type="file" accept="image/*" class="hidden" id="profile-avatar-input" />
+                      </label>
+                    </div>
+                  </div>
+                  <div class="flex-1 space-y-3">
+                    <label class="flex flex-col gap-1">
+                      <span class="text-[11px] text-slate-300">显示名称</span>
+                      <input
+                        type="text"
+                        id="profile-display-name"
+                        value="Fengwei"
+                        placeholder="读者看到的名称"
+                        class="px-3 py-2 rounded-xl bg-slate-950/80 border border-slate-700/80 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-400/70"
+                      />
+                    </label>
+                    <label class="flex flex-col gap-1">
+                      <span class="text-[11px] text-slate-300">一句话简介</span>
+                      <input
+                        type="text"
+                        id="profile-tagline"
+                        value="全栈工程师 · 写作爱好者"
+                        placeholder="例如：全栈工程师 · 写作爱好者"
+                        class="px-3 py-2 rounded-xl bg-slate-950/80 border border-slate-700/80 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-400/70"
+                      />
+                    </label>
+                  </div>
+                </div>
+                <label class="flex flex-col gap-1">
+                  <span class="text-[11px] text-slate-300">个人简介</span>
+                  <textarea
+                    id="profile-bio"
+                    rows="4"
+                    placeholder="介绍你自己，会展示在作者主页"
+                    class="px-3 py-2 rounded-xl bg-slate-950/80 border border-slate-700/80 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-400/70 resize-none"
+                  >资深全栈工程师，喜欢用写作整理思路，也喜欢用代码把想法变成产品。正在探索「写作 × AI × 工程实践」的边界。</textarea>
+                </label>
+              </div>
+              <div class="rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 space-y-3">
+                <p class="text-sm font-medium flex items-center gap-2">
+                  <i class="fa-solid fa-link text-sky-300"></i>
+                  <span>个人链接</span>
+                </p>
+                <label class="flex flex-col gap-1">
+                  <span class="text-[11px] text-slate-300">网站 / 博客</span>
+                  <input
+                    type="url"
+                    id="profile-website"
+                    placeholder="https://..."
+                    class="px-3 py-2 rounded-xl bg-slate-950/80 border border-slate-700/80 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-400/70"
+                  />
+                </label>
+                <label class="flex flex-col gap-1">
+                  <span class="text-[11px] text-slate-300">GitHub / 微博等（可选）</span>
+                  <input
+                    type="text"
+                    id="profile-social"
+                    placeholder="用户名或链接"
+                    class="px-3 py-2 rounded-xl bg-slate-950/80 border border-slate-700/80 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-400/70"
+                  />
+                </label>
+              </div>
+              <div class="flex justify-end">
+                <button
+                  type="button"
+                  id="profile-save-btn"
+                  class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 font-medium hover:bg-emerald-400"
+                >
+                  <i class="fa-solid fa-floppy-disk"></i>
+                  <span>保存个人信息</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- 设置表单主体（AI / 主题 / 隐私 等） -->
+          <section id="settings-panel-ai" class="settings-panel flex-1 overflow-y-auto px-4 md:px-8 py-4 space-y-4 text-xs" data-panel="ai">
+            <!-- 一列两栏布局 -->
+            <div class="grid md:grid-cols-2 gap-4">
+              <!-- AI 模型设置 -->
+              <div
+                class="rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 space-y-3"
+              >
+                <p class="text-sm font-medium flex items-center gap-2">
+                  <i class="fa-solid fa-brain text-emerald-300"></i>
+                  <span>模型与性能</span>
+                </p>
+                <div class="space-y-2">
+                  <label class="flex flex-col gap-1">
+                    <span class="text-[11px] text-slate-300">首选模型</span>
+                    <select
+                      class="px-3 py-2 rounded-xl bg-slate-950/80 border border-slate-700/80 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-400/70"
+                    >
+                      <option>InkMind Default（平衡 · 推荐）</option>
+                      <option>InkMind Fast（更快 · 稍少上下文）</option>
+                      <option>InkMind Deep（更深入 · 更慢）</option>
+                    </select>
+                    <span class="text-[10px] text-slate-500">
+                      仅为 UI 展示，实际开发时可映射为不同供应商/模型组合。
+                    </span>
+                  </label>
+
+                  <label class="flex flex-col gap-1">
+                    <span class="text-[11px] text-slate-300">最大上下文长度</span>
+                    <div class="flex items-center gap-2">
+                      <input
+                        type="range"
+                        min="2"
+                        max="16"
+                        value="8"
+                        class="flex-1 accent-emerald-400"
+                      />
+                      <span class="w-14 text-right text-[11px] text-slate-300">8 k tokens</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500">
+                      上下文越长，AI 对整篇文章的理解越好，但响应会稍慢。
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 写作风格设置 -->
+              <div
+                class="rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 space-y-3"
+              >
+                <p class="text-sm font-medium flex items-center gap-2">
+                  <i class="fa-solid fa-pen-nib text-cyan-300"></i>
+                  <span>写作风格</span>
+                </p>
+                <div class="space-y-2">
+                  <label class="flex flex-col gap-1">
+                    <span class="text-[11px] text-slate-300">默认语气</span>
+                    <div class="flex flex-wrap gap-2">
+                      <button
+                        class="px-3 py-1.5 rounded-xl bg-emerald-500/90 text-slate-950 text-[11px] font-medium"
+                      >
+                        亲切 · 对话式
+                      </button>
+                      <button
+                        class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-200 text-[11px]"
+                      >
+                        严谨 · 专业向
+                      </button>
+                      <button
+                        class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-200 text-[11px]"
+                      >
+                        简洁 · 要点式
+                      </button>
+                    </div>
+                  </label>
+
+                  <label class="flex flex-col gap-1">
+                    <span class="text-[11px] text-slate-300">可读性偏好</span>
+                    <div class="flex items-center gap-2">
+                      <span class="text-[11px] text-slate-500">更学术</span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="10"
+                        value="4"
+                        class="flex-1 accent-cyan-400"
+                      />
+                      <span class="text-[11px] text-slate-500">更口语</span>
+                    </div>
+                  </label>
+
+                  <label class="flex flex-col gap-1">
+                    <span class="text-[11px] text-slate-300">禁用的写作倾向</span>
+                    <div class="flex flex-wrap gap-2">
+                      <label
+                        class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-950/80 border border-slate-700/80 cursor-pointer"
+                      >
+                        <input type="checkbox" class="form-checkbox accent-emerald-400 w-3.5 h-3.5" />
+                        <span class="text-[11px] text-slate-300">过度煽情</span>
+                      </label>
+                      <label
+                        class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-950/80 border border-slate-700/80 cursor-pointer"
+                      >
+                        <input type="checkbox" class="form-checkbox accent-emerald-400 w-3.5 h-3.5" />
+                        <span class="text-[11px] text-slate-300">营销感过重</span>
+                      </label>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 阅读时 AI 行为 -->
+            <div
+              class="rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 space-y-3"
+            >
+              <p class="text-sm font-medium flex items-center gap-2">
+                <i class="fa-solid fa-book-open-reader text-sky-300"></i>
+                <span>阅读时的 AI 行为</span>
+              </p>
+              <div class="grid md:grid-cols-3 gap-3 text-[11px]">
+                <label class="flex items-start gap-2">
+                  <input type="checkbox" checked class="mt-0.5 accent-emerald-400 w-3.5 h-3.5" />
+                  <div>
+                    <p class="text-slate-200">启用「就本文提问」对话框</p>
+                    <p class="text-slate-500">
+                      在文章右侧显示 AI 对话区域，读者的问题会自动携带文章上下文。
+                    </p>
+                  </div>
+                </label>
+                <label class="flex items-start gap-2">
+                  <input type="checkbox" checked class="mt-0.5 accent-emerald-400 w-3.5 h-3.5" />
+                  <div>
+                    <p class="text-slate-200">支持划词解释</p>
+                    <p class="text-slate-500">
+                      读者选中一段文字时，显示「AI 解释 / 翻译」浮层。
+                    </p>
+                  </div>
+                </label>
+                <label class="flex items-start gap-2">
+                  <input type="checkbox" class="mt-0.5 accent-emerald-400 w-3.5 h-3.5" />
+                  <div>
+                    <p class="text-slate-200">自动生成阅读提纲</p>
+                    <p class="text-slate-500">
+                      在文章顶部生成「AI 提纲」，帮助读者快速了解结构。
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- 隐私 & 限制 -->
+            <div
+              class="rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 space-y-3"
+            >
+              <p class="text-sm font-medium flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-emerald-300"></i>
+                <span>隐私与调用限制</span>
+              </p>
+              <div class="grid md:grid-cols-2 gap-3 text-[11px]">
+                <label class="flex flex-col gap-1">
+                  <span class="text-slate-300">是否允许用文章内容训练模型</span>
+                  <select
+                    class="px-3 py-2 rounded-xl bg-slate-950/80 border border-slate-700/80 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-400/70"
+                  >
+                    <option>仅用于当前请求，不用于长期训练</option>
+                    <option>允许在本地 / 私有环境中微调</option>
+                  </select>
+                  <span class="text-[10px] text-slate-500">
+                    具体实现中，可映射为不同的合规与数据策略。
+                  </span>
+                </label>
+
+                <div class="space-y-2">
+                  <p class="text-slate-300">每日调用限制（展示用）</p>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="flex-1 rounded-2xl bg-slate-950/80 border border-slate-700/80 px-3 py-2 flex items-center justify-between"
+                    >
+                      <span class="text-slate-400">写作时 AI 调用</span>
+                      <span class="text-emerald-300">120 / 天</span>
+                    </div>
+                    <div
+                      class="flex-1 rounded-2xl bg-slate-950/80 border border-slate-700/80 px-3 py-2 flex items-center justify-between"
+                    >
+                      <span class="text-slate-400">阅读时 AI 调用</span>
+                      <span class="text-cyan-300">300 / 天</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 外观主题（简略版） -->
+            <div
+              class="rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-3 space-y-3"
+            >
+              <p class="text-sm font-medium flex items-center gap-2">
+                <i class="fa-solid fa-palette text-cyan-300"></i>
+                <span>外观主题（示意）</span>
+              </p>
+              <div class="grid md:grid-cols-3 gap-3 text-[11px]">
+                <button
+                  class="rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-emerald-500/60 px-3 py-2 text-left space-y-1"
+                >
+                  <p class="text-slate-100 flex items-center gap-1">
+                    <i class="fa-solid fa-circle-check text-emerald-300"></i>
+                    <span>深色 · 墨绿高亮</span>
+                  </p>
+                  <p class="text-slate-400">
+                    当前主题，适合长时间编写与阅读。
+                  </p>
+                </button>
+                <button
+                  class="rounded-2xl bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 border border-slate-300 px-3 py-2 text-left space-y-1 text-slate-800"
+                >
+                  <p class="flex items-center gap-1">
+                    <i class="fa-regular fa-circle"></i>
+                    <span>浅色 · 蓝色高亮</span>
+                  </p>
+                  <p class="text-slate-500">
+                    适合白天和强光环境，眼睛更放松。
+                  </p>
+                </button>
+                <button
+                  class="rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-violet-500/60 px-3 py-2 text-left space-y-1"
+                >
+                  <p class="text-slate-100 flex items-center gap-1">
+                    <i class="fa-regular fa-circle"></i>
+                    <span>高对比 · 黑紫色</span>
+                  </p>
+                  <p class="text-slate-400">
+                    适合夜间及 OLED 屏幕，能效更高。
+                  </p>
+                </button>
+              </div>
+            </div>
+          </section>
+        </main>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navBtns = document.querySelectorAll(".settings-nav");
+        const panels = document.querySelectorAll(".settings-panel");
+        const titleEl = document.getElementById("settings-title");
+        const actionsEl = document.getElementById("settings-actions");
+        const titles = {
+          ai: "配置 AI 如何参与你的写作与阅读",
+          profile: "编辑你的公开资料与个人链接",
+          theme: "选择界面主题与阅读体验",
+          privacy: "隐私与调用限制",
+          export: "集成与导出"
+        };
+
+        function showPanel(section) {
+          navBtns.forEach((btn) => {
+            const on = btn.dataset.section === section;
+            btn.classList.toggle("bg-slate-800/90", on);
+            btn.classList.toggle("text-slate-100", on);
+            btn.classList.toggle("hover:bg-slate-800/70", !on);
+            btn.classList.toggle("text-slate-200", !on);
+          });
+          panels.forEach((panel) => {
+            const show = panel.dataset.panel === section || (section !== "profile" && panel.dataset.panel === "ai");
+            panel.classList.toggle("hidden", !show);
+          });
+          if (titleEl) titleEl.textContent = titles[section] || titles.ai;
+          if (actionsEl) actionsEl.classList.toggle("hidden", section === "profile");
+        }
+
+        navBtns.forEach((btn) => {
+          btn.addEventListener("click", () => showPanel(btn.dataset.section));
+        });
+        if (location.hash === "#profile") showPanel("profile");
+
+        document.getElementById("profile-save-btn")?.addEventListener("click", () => {
+          const name = document.getElementById("profile-display-name")?.value;
+          const tagline = document.getElementById("profile-tagline")?.value;
+          const bio = document.getElementById("profile-bio")?.value;
+          if (name || tagline || bio) {
+            try { localStorage.setItem("inkmind_profile", JSON.stringify({ name, tagline, bio })); } catch (e) {}
+            alert("个人信息已保存（演示：仅写入本地）");
+          }
+        });
+
+        document.getElementById("profile-avatar-input")?.addEventListener("change", function(e) {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = function() {
+            const img = document.getElementById("profile-avatar-preview");
+            if (img) img.src = reader.result;
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+    </script>
+  </body>
+</html>
